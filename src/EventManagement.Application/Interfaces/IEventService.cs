@@ -9,5 +9,4 @@ public interface IEventService
     Task DeleteEventAsync(Guid eventId);
     Task<EventDto?> GetEventByIdAsync(Guid eventId);
     Task<IEnumerable<EventDto>> GetAllEventsAsync();
-    Task<IEnumerable<EventDto>> GetEventsByCreatorAsync(Guid creatorId);
 }
