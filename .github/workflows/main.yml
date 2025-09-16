@@ -20,11 +20,18 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    - name: Change to src directory
-      run: cd src
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+        pushd './src'
+        dotnet restore
+        popd
     - name: Build
-      run: dotnet build --no-restore
+      run: |
+        pushd './src'
+        dotnet build --no-restore
+        popd
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: |
+        pushd './src'
+        dotnet test --no-build --verbosity normal
+        popd
