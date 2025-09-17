@@ -52,9 +52,6 @@ public class Event : BaseEntity
         if (string.IsNullOrWhiteSpace(location))
             throw new ArgumentException("Event location cannot be empty", nameof(location));
 
-        if (startTime <= DateTime.UtcNow)
-            throw new ArgumentException("Event start time must be in the future", nameof(startTime));
-
         if (endTime <= startTime)
             throw new ArgumentException("Event end time must be after start time", nameof(endTime));
     }
