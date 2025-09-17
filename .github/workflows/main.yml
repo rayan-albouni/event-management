@@ -32,6 +32,6 @@ jobs:
         popd
     - name: Test
       run: |
-        pushd './src'
+        pushd './event-management-backend/src'
         dotnet test --no-build --verbosity normal
         popd
