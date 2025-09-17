@@ -1,0 +1,54 @@
+<div class="login-container">
+  <h2>Login</h2>
+  
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email"
+        [(ngModel)]="credentials.email" 
+        required 
+        email
+        #email="ngModel"
+        class="form-control">
+      <div *ngIf="email.invalid && email.touched" class="error">
+        <small *ngIf="email.errors?.['required']">Email is required</small>
+        <small *ngIf="email.errors?.['email']">Please enter a valid email</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password"
+        [(ngModel)]="credentials.password" 
+        required 
+        minlength="6"
+        #password="ngModel"
+        class="form-control">
+      <div *ngIf="password.invalid && password.touched" class="error">
+        <small *ngIf="password.errors?.['required']">Password is required</small>
+        <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</small>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="loginForm.invalid || isLoading"
+      class="btn btn-primary">
+      {{ isLoading ? 'Logging in...' : 'Login' }}
+    </button>
+  </form>
+
+  <p class="register-link">
+    Don't have an account? <a routerLink="/register">Register here</a>
+  </p>
+</div>

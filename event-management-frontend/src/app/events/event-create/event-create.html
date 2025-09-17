@@ -1,0 +1,107 @@
+<div class="create-event-container">
+  <h2>Create New Event</h2>
+  
+  <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+    <div class="form-group">
+      <label for="name">Event Name:</label>
+      <input 
+        type="text" 
+        id="name" 
+        name="name"
+        [(ngModel)]="eventData.name" 
+        required 
+        #name="ngModel"
+        class="form-control"
+        placeholder="Enter event name">
+      <div *ngIf="name.invalid && name.touched" class="error">
+        <small *ngIf="name.errors?.['required']">Event name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea 
+        id="description" 
+        name="description"
+        [(ngModel)]="eventData.description" 
+        required 
+        #description="ngModel"
+        class="form-control"
+        rows="4"
+        placeholder="Describe your event">
+      </textarea>
+      <div *ngIf="description.invalid && description.touched" class="error">
+        <small *ngIf="description.errors?.['required']">Description is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input 
+        type="text" 
+        id="location" 
+        name="location"
+        [(ngModel)]="eventData.location" 
+        required 
+        #location="ngModel"
+        class="form-control"
+        placeholder="Event location">
+      <div *ngIf="location.invalid && location.touched" class="error">
+        <small *ngIf="location.errors?.['required']">Location is required</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="startTime">Start Date & Time:</label>
+        <input 
+          type="datetime-local" 
+          id="startTime" 
+          name="startTime"
+          [(ngModel)]="eventData.startTime" 
+          required 
+          [min]="getMinDateTime()"
+          #startTime="ngModel"
+          class="form-control">
+        <div *ngIf="startTime.invalid && startTime.touched" class="error">
+          <small *ngIf="startTime.errors?.['required']">Start time is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endTime">End Date & Time:</label>
+        <input 
+          type="datetime-local" 
+          id="endTime" 
+          name="endTime"
+          [(ngModel)]="eventData.endTime" 
+          required 
+          [min]="eventData.startTime || getMinDateTime()"
+          #endTime="ngModel"
+          class="form-control">
+        <div *ngIf="endTime.invalid && endTime.touched" class="error">
+          <small *ngIf="endTime.errors?.['required']">End time is required</small>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="button" 
+        (click)="cancel()"
+        class="btn btn-secondary">
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        [disabled]="eventForm.invalid || isLoading"
+        class="btn btn-primary">
+        {{ isLoading ? 'Creating...' : 'Create Event' }}
+      </button>
+    </div>
+  </form>
+</div>

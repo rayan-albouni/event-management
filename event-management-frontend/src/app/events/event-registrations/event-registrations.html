@@ -1,0 +1,80 @@
+<div class="registrations-container">
+  <header class="header">
+    <div class="header-content">
+      <button (click)="goBack()" class="btn btn-secondary back-button">
+        ← Back to Events
+      </button>
+      <div class="header-title">
+        <h1>Event Registrations</h1>
+        <h2 *ngIf="event">{{ event.name }}</h2>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div *ngIf="isLoading" class="loading">Loading registrations...</div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!isLoading && event" class="event-summary">
+      <div class="summary-card">
+        <h3>Event Details</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <strong>Location:</strong> {{ event.location }}
+          </div>
+          <div class="detail-item">
+            <strong>Start:</strong> {{ formatDateTime(event.startTime) }}
+          </div>
+          <div class="detail-item">
+            <strong>End:</strong> {{ formatDateTime(event.endTime) }}
+          </div>
+          <div class="detail-item">
+            <strong>Total Registrations:</strong> {{ registrations.length }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && registrations.length === 0 && !errorMessage" class="no-registrations">
+      <div class="empty-state">
+        <h3>No Registrations Yet</h3>
+        <p>No one has registered for this event yet.</p>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && registrations.length > 0" class="registrations-section">
+      <div class="section-header">
+        <h3>Registered Participants ({{ registrations.length }})</h3>
+        <button 
+          (click)="exportRegistrations()" 
+          class="btn btn-primary export-button">
+          Export to CSV
+        </button>
+      </div>
+
+      <div class="registrations-table-container">
+        <table class="registrations-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Registration Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let registration of registrations; trackBy: trackByRegistrationId">
+              <td>{{ registration.name }}</td>
+              <td>{{ registration.email }}</td>
+              <td>{{ registration.phoneNumber }}</td>
+              <td>{{ formatDateTime(registration.createdAt) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

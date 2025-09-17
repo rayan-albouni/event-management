@@ -1,0 +1,97 @@
+<div class="edit-event-container">
+  <header class="header">
+    <button (click)="goBack()" class="btn btn-secondary">← Back to Events</button>
+    <h1>Edit Event</h1>
+  </header>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading event details...
+    <br><small>Event ID: {{ eventId }}</small>
+    <br><small>Check browser console for details</small>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <br><small>Event ID: {{ eventId }}</small>
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && event" class="form-container">
+    <div class="event-info">
+      <h2>{{ event.name }}</h2>
+      <p>Created: {{ event.createdAt | date:'medium' }} | Registrations: {{ event.registrationCount }}</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="event-form">
+      <div class="form-group">
+        <label for="name">Event Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name"
+          [(ngModel)]="formData.name" 
+          required 
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea 
+          id="description" 
+          name="description"
+          [(ngModel)]="formData.description" 
+          required 
+          rows="4"
+          class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location *</label>
+        <input 
+          type="text" 
+          id="location" 
+          name="location"
+          [(ngModel)]="formData.location" 
+          required 
+          class="form-control">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startTime">Start Date & Time *</label>
+          <input 
+            type="datetime-local" 
+            id="startTime" 
+            name="startTime"
+            [(ngModel)]="formData.startTime" 
+            required 
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="endTime">End Date & Time *</label>
+          <input 
+            type="datetime-local" 
+            id="endTime" 
+            name="endTime"
+            [(ngModel)]="formData.endTime" 
+            required 
+            class="form-control">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="goBack()" class="btn btn-secondary">Cancel</button>
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="isSaving || !eventForm.form.valid">
+          {{ isSaving ? 'Updating...' : 'Update Event' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
