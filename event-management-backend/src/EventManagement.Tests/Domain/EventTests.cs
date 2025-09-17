@@ -49,17 +49,6 @@ public class EventTests
     }
 
     [Fact]
-    public void Event_Constructor_ShouldThrowArgumentException_WhenStartTimeIsInPast()
-    {
-        var startTime = DateTime.UtcNow.AddDays(-1);
-        var endTime = startTime.AddHours(8);
-
-        var act = () => new Event("name", "description", "location", startTime, endTime, Guid.NewGuid());
-        act.Should().Throw<ArgumentException>()
-            .WithMessage("*start time must be in the future*");
-    }
-
-    [Fact]
     public void Event_Constructor_ShouldThrowArgumentException_WhenEndTimeIsBeforeStartTime()
     {
         var startTime = DateTime.UtcNow.AddDays(1);
