@@ -86,8 +86,7 @@ public class EventService : IEventService
 
     private async Task<EventDto> MapToEventDtoAsync(Event eventEntity)
     {
-        var creator = await _unitOfWork.Users.GetByIdAsync(eventEntity.CreatorId);
-        var registrations = await _unitOfWork.Registrations.GetRegistrationsByEventIdAsync(eventEntity.Id);
+        var registrations = eventEntity.Registrations ?? await _unitOfWork.Registrations.GetRegistrationsByEventIdAsync(eventEntity.Id);
 
         return new EventDto(
             eventEntity.Id,

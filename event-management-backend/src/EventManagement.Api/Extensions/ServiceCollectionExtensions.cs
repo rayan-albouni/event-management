@@ -25,10 +25,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<EventManagementDbContext>(options =>
             options.UseSqlite(connectionString));
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<IRegistrationRepository, RegistrationRepository>();
+    services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IAuthService, AuthService>();

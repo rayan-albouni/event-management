@@ -44,7 +44,7 @@ public class EventServiceTests
         result.StartTime.Should().Be(createEventDto.StartTime);
         result.EndTime.Should().Be(createEventDto.EndTime);
 
-        await _mockUnitOfWork.Users.Received(2).GetByIdAsync(creatorId);
+        await _mockUnitOfWork.Users.Received(1).GetByIdAsync(creatorId);
         await _mockUnitOfWork.Events.Received(1).AddAsync(Arg.Any<Event>());
         await _mockUnitOfWork.Received(1).SaveChangesAsync();
     }
@@ -87,7 +87,7 @@ public class EventServiceTests
 
         result.Should().NotBeNull();
         result.Name.Should().Be(createEventDto.Name);
-        await _mockUnitOfWork.Users.Received(2).GetByIdAsync(creatorId);
+        await _mockUnitOfWork.Users.Received(1).GetByIdAsync(creatorId);
         await _mockUnitOfWork.Events.Received(1).AddAsync(Arg.Any<Event>());
         await _mockUnitOfWork.Received(1).SaveChangesAsync();
     }
