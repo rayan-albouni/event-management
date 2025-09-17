@@ -22,12 +22,12 @@ jobs:
         dotnet-version: 9.0.x
     - name: Restore dependencies
       run: |
-        pushd './src'
+        pushd './event-management-backend/src'
         dotnet restore
         popd
     - name: Build
       run: |
-        pushd './src'
+        pushd './event-management-backend/src'
         dotnet build --no-restore
         popd
     - name: Test
